@@ -55,7 +55,7 @@ usersRouter.patch(
             updated_at: user.updated_at,
             avatar: user.avatar,
         };
-        return response.json(userWithoutPassword);
+        return response.json({ user: userWithoutPassword });
     },
 );
 
