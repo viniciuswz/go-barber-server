@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import { verify } from 'jsonwebtoken';
-import authConfig from '../config/auth';
+import authConfig from '@config/auth';
 
-import AppError from '../errors/AppError';
+import AppError from '@shared/errors/AppError';
 
 interface TokenPaylaod {
     iat: number;
@@ -19,7 +19,7 @@ export default function ensureAuthenticated(
     if (!authHeader) {
         throw new AppError('JWT token in not provider', 401);
     }
-    const { expiresIn, secret } = authConfig.jwt;
+    const { secret } = authConfig.jwt;
 
     const [, token] = authHeader.split(' ');
 
