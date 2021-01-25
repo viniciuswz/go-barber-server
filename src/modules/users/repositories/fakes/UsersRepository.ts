@@ -1,47 +1,48 @@
-import { getRepository, Repository } from 'typeorm';
-
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import User from '@modules/users/infra/typeorm/entities/User';
 import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
+import { v4 as uuid } from 'uuid';
 
 class UsersRepository implements IUsersRepository {
-    private ormRepository: Repository<User>;
-
-    constructor() {
-        this.ormRepository = getRepository(User);
-    }
+    private users: User[] = [];
 
     public async create({
         email,
         name,
         password,
     }: ICreateUserDTO): Promise<User> {
-        const appointment = this.ormRepository.create({
+        const user = new User();
+        Object.assign(user, {
+            id: uuid(),
             email,
             name,
             password,
         });
 
-        await this.ormRepository.save(appointment);
-        return appointment;
+        this.users.push(user);
+
+        return user;
     }
 
-    public async save(data: User): Promise<User> {
-        const user = await this.ormRepository.save(data);
+    public async save(user: User): Promise<User> {
+        const findIndex = this.users.findIndex(
+            userIndex => userIndex.id === user.id,
+        );
+
+        if (findIndex >= 0) {
+            this.users[findIndex] = user;
+        }
         return user;
     }
 
     public async findById(id: string): Promise<User | undefined> {
-        const user = await this.ormRepository.findOne(id);
-        return user;
+        const userById = this.users.find(user => user.id === id);
+        return userById;
     }
 
     public async findByEmail(email: string): Promise<User | undefined> {
-        const user = await this.ormRepository.findOne({
-            where: email,
-        });
-
-        return user;
+        const userByEmail = this.users.find(user => user.email === email);
+        return userByEmail;
     }
 }
 
