@@ -16,6 +16,8 @@ export default class UsersControllers {
             password,
         });
 
+        console.log('TESSSSSSSSSSST', user);
+
         const userWithoutPassword = {
             id: user.id,
             name: user.name,

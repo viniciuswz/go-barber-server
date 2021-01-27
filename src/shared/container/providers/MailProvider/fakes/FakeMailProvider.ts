@@ -5,7 +5,7 @@ interface IMessage {
     body: string;
 }
 
-export default class FAkeMailProvider implements IEmailProvider {
+export default class FakeMailProvider implements IEmailProvider {
     private messages: IMessage[] = [];
 
     async sendMail(to: string, body: string): Promise<void> {
