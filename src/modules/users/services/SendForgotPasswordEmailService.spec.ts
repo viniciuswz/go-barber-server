@@ -44,23 +44,4 @@ describe('SendForgotPAsswprdEmail', () => {
             }),
         ).rejects.toBeInstanceOf(AppError);
     });
-
-    it('should generate a forgot password token', async () => {
-        const generatedToken = jest.spyOn(
-            fakeUsersTokensRepository,
-            'generated',
-        );
-
-        const user = await fakeUsersRepository.create({
-            email: 'johndoe@example.com',
-            name: 'John Doe',
-            password: '123456',
-        });
-
-        await sendForgotPasswordEmailService.execute({
-            email: 'johndoe@example.com',
-        });
-
-        expect(generatedToken).toHaveBeenCalledWith(user.id);
-    });
 });
