@@ -4,7 +4,7 @@ import authConfig from '@config/auth';
 
 import AppError from '@shared/errors/AppError';
 
-interface TokenPaylaod {
+interface ITokenPaylaod {
     iat: number;
     exp: number;
     sub: string;
@@ -26,11 +26,10 @@ export default function ensureAuthenticated(
     try {
         const decoded = verify(token, secret);
 
-        const { sub } = decoded as TokenPaylaod;
+        const { sub } = decoded as ITokenPaylaod;
         request.user = {
             id: sub,
         };
-        console.log(decoded);
         return next();
     } catch {
         throw new AppError('Invalid JWT token', 401);
