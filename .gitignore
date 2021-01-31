@@ -2,3 +2,6 @@
 !tmp/.gitkeep
 node_modules
 yarn-error.log
+.env
+ormconfig.json
+
