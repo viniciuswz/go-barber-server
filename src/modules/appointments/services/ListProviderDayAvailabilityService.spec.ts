@@ -17,20 +17,20 @@ describe('ListDayAvailability', () => {
         await fakeAppointmentsRepository.create({
             provider_id: 'user',
             user_id: 'id',
-            date: new Date(2021, 1, 2, 14, 0, 0),
+            date: new Date(2077, 1, 2, 14, 0, 0),
         });
         await fakeAppointmentsRepository.create({
             provider_id: 'user',
             user_id: 'id',
-            date: new Date(2021, 1, 2, 15, 0, 0),
+            date: new Date(2077, 1, 2, 16, 0, 0),
         });
 
         jest.spyOn(Date, 'now').mockImplementationOnce(() => {
-            return new Date(2021, 1, 2, 11, 0, 0).getTime();
+            return new Date(2077, 1, 2, 11, 0, 0).getTime();
         });
         const avalability = await listProviderDayAvailability.execute({
             provider_id: 'user',
-            year: 2021,
+            year: 2077,
             month: 2,
             day: 2,
         });
@@ -41,8 +41,8 @@ describe('ListDayAvailability', () => {
                 { hour: 10, available: false },
                 { hour: 11, available: false },
                 { hour: 14, available: false },
-                { hour: 15, available: false },
-                { hour: 16, available: true },
+                { hour: 15, available: true },
+                { hour: 16, available: false },
                 { hour: 17, available: true },
             ]),
         );
