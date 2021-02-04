@@ -2,7 +2,7 @@ import { inject, injectable } from 'tsyringe';
 import { getHours, isAfter } from 'date-fns';
 
 import IAppointmentsRepository from '@modules/appointments/repositories/IAppointmentsRepository';
-// import ApponintmentRepository from '@modules/appointments/infra/typeorm/repositories/AppointmentsRepository';
+// import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 
 interface IRequest {
     provider_id: string;

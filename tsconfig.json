@@ -22,5 +22,5 @@
   "include": [
     "src/**/*.ts"
   ],
-  "exclude": ["node_modules", "**/*.spec.ts", "coverage"],
+  "exclude": ["node_modules", "coverage"]
 }
